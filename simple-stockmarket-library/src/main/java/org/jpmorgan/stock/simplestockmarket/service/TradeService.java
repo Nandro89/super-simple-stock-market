@@ -25,4 +25,8 @@ public interface TradeService {
 	public abstract double calculateVolumeWeightedStockPriceInThePreceedingXTime(final Stock stock, final int amount, final int dateFieldToManipulate);
 
 	public abstract List<Trade> findAllTradesByStockSymbol(final Stock stock);
+
+	public abstract double calculateGBCEAllShareIndexByGeometricMeanOnRegisteredTrades();
+
+	public abstract double calculateGBCEAllShareIndexByGeometricMeanOnSpecificTrades(final List<Trade> trades);
 }

@@ -12,6 +12,7 @@ import org.jpmorgan.stock.simplestockmarket.model.Stock;
 import org.jpmorgan.stock.simplestockmarket.model.Trade;
 import org.jpmorgan.stock.simplestockmarket.utils.DateUtils;
 import org.jpmorgan.stock.simplestockmarket.utils.TradeDateComparator;
+import org.springframework.stereotype.Component;
 
 /**
  * This class implements the basic interface for the trade services.
@@ -22,6 +23,7 @@ import org.jpmorgan.stock.simplestockmarket.utils.TradeDateComparator;
  * @since 21/09/2016
  *
  */
+@Component
 public class InMemoryTradeService implements TradeService {
 	private Map<Class<? extends Stock>, List<Trade>> trades = new HashMap<Class<? extends Stock>, List<Trade>>();
 
@@ -75,5 +77,27 @@ public class InMemoryTradeService implements TradeService {
 	@Override
 	public List<Trade> findAllTradesByStockSymbol(final Stock stock) {
 		return trades.get(stock.getClass());
+	}
+
+	@Override
+	public double calculateGBCEAllShareIndexByGeometricMeanOnRegisteredTrades() {
+		List<Trade> allTrades = new ArrayList<Trade>();
+		for(Class<? extends Stock> key : trades.keySet()) {
+			allTrades.addAll(trades.get(key));
+		}
+		return calculateGBCEAllShareIndexByGeometricMeanOnInputTrades(allTrades);
+	}
+
+	@Override
+	public double calculateGBCEAllShareIndexByGeometricMeanOnSpecificTrades(final List<Trade> trades) {
+		return calculateGBCEAllShareIndexByGeometricMeanOnInputTrades(trades);
+	}
+	
+	private double calculateGBCEAllShareIndexByGeometricMeanOnInputTrades(final List<Trade> trades) {
+		long total = 1;
+		for(Trade trade : trades) {
+			total *= trade.getTradedPrice();
+		}
+		return Math.pow((double)total, (1d/trades.size()));
 	}
 }
