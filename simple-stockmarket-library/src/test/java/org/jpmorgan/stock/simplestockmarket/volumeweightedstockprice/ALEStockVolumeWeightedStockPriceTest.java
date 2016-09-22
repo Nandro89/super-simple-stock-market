@@ -14,7 +14,7 @@ import org.jpmorgan.stock.simplestockmarket.service.TradeService;
 import org.jpmorgan.stock.simplestockmarket.utils.DateUtils;
 import org.junit.Test;
 
-public class ALEVolumeWeightedStockPriceTest {
+public class ALEStockVolumeWeightedStockPriceTest {
 
 	@Test
 	public void test() {

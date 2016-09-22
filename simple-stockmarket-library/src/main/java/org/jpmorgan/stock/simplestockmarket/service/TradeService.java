@@ -1,5 +1,7 @@
 package org.jpmorgan.stock.simplestockmarket.service;
 
+import java.util.List;
+
 import org.jpmorgan.stock.simplestockmarket.model.Stock;
 import org.jpmorgan.stock.simplestockmarket.model.Trade;
 
@@ -21,4 +23,6 @@ public interface TradeService {
 	public abstract boolean registerTrade(final Trade trade);
 
 	public abstract double calculateVolumeWeightedStockPriceInThePreceedingXTime(final Stock stock, final int amount, final int dateFieldToManipulate);
+
+	public abstract List<Trade> findAllTradesByStockSymbol(final Stock stock);
 }

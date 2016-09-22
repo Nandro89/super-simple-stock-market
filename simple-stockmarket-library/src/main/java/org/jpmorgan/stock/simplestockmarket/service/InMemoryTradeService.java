@@ -71,4 +71,9 @@ public class InMemoryTradeService implements TradeService {
 		volumeWightedStockPrice = (double)tradedPriceQuantitySum/quantitySum;
 		return volumeWightedStockPrice;
 	}
+
+	@Override
+	public List<Trade> findAllTradesByStockSymbol(final Stock stock) {
+		return trades.get(stock.getClass());
+	}
 }
